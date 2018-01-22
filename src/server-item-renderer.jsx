@@ -7,7 +7,6 @@
  * exercise.
  */
 const React = require("react");
-const ReactDOM = require("react-dom");
 const _ = require("underscore");
 const {StyleSheet, css} = require("aphrodite");
 
@@ -49,7 +48,7 @@ const ItemRenderer = React.createClass({
 
     getInitialState: function() {
         return {
-            ...ProvideKeypad.getInitialState(),
+            ...ProvideKeypad.getInitialState.call(this),
             questionCompleted: false,
             questionHighlightedWidgets: [],
         };
@@ -115,9 +114,7 @@ const ItemRenderer = React.createClass({
             this.props.apiOptions.onFocusChange(
                 this._currentFocus,
                 prevFocus,
-                didFocusInput &&
-                    keypadElement &&
-                    ReactDOM.findDOMNode(keypadElement)
+                didFocusInput && keypadElement && keypadElement.getDOMNode()
             );
         }
 

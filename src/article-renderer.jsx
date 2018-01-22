@@ -6,7 +6,6 @@
  */
 
 const React = require("react");
-const ReactDOM = require("react-dom");
 const classNames = require("classnames");
 
 const Util = require("./util.js");
@@ -54,7 +53,7 @@ const ArticleRenderer = React.createClass({
     },
 
     getInitialState() {
-        return ProvideKeypad.getInitialState();
+        return ProvideKeypad.getInitialState.call(this);
     },
 
     componentDidMount() {
@@ -106,9 +105,7 @@ const ArticleRenderer = React.createClass({
             this.props.apiOptions.onFocusChange(
                 this._currentFocus,
                 prevFocusPath,
-                didFocusInput &&
-                    keypadElement &&
-                    ReactDOM.findDOMNode(keypadElement)
+                didFocusInput && keypadElement && keypadElement.getDOMNode()
             );
         }
 

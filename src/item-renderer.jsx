@@ -79,7 +79,7 @@ const ItemRenderer = React.createClass({
 
     getInitialState: function() {
         return {
-            ...ProvideKeypad.getInitialState(),
+            ...ProvideKeypad.getInitialState.call(this),
             hintsVisible: this.props.initialHintsVisible,
             questionCompleted: false,
             questionHighlightedWidgets: [],
@@ -253,9 +253,7 @@ const ItemRenderer = React.createClass({
             this.props.apiOptions.onFocusChange(
                 this._currentFocus,
                 prevFocus,
-                didFocusInput &&
-                    keypadElement &&
-                    ReactDOM.findDOMNode(keypadElement)
+                didFocusInput && keypadElement && keypadElement.getDOMNode()
             );
         }
 

@@ -23,6 +23,7 @@ const ProvideKeypad = {
     propTypes: {
         apiOptions: React.PropTypes.shape({
             customKeypad: React.PropTypes.bool,
+            nativeKeypadProxy: React.PropTypes.func,
         }),
         // An Aphrodite style object, to be applied to the keypad container.
         // Note that, given our awkward structure of injecting the keypad, this
@@ -32,17 +33,29 @@ const ProvideKeypad = {
     },
 
     getInitialState() {
-        return {
-            keypadElement: null,
-        };
+        let keypadElement = null;
+        if (
+            this.props.apiOptions &&
+            this.props.apiOptions.customKeypad &&
+            this.props.apiOptions.nativeKeypadProxy
+        ) {
+            keypadElement = this.props.apiOptions.nativeKeypadProxy(
+                () => this.blur && this.blur(),
+            );
+        }
+        return {keypadElement};
     },
 
     componentDidMount() {
-        if (this.props.apiOptions && this.props.apiOptions.customKeypad) {
-            // TODO(charlie): Render this and the wrapped component in the same
-            // React tree. We may also want to add this keypad asynchronously or
-            // on-demand in the future.
-            this._keypadContainer = document.createElement('div');
+        if (
+            this.props.apiOptions &&
+            this.props.apiOptions.customKeypad &&
+            !this.props.apiOptions.nativeKeypadProxy
+        ) {
+            // TODO(charlie): Render this and the wrapped component in the
+            // same React tree. We may also want to add this keypad
+            // asynchronously or on-demand in the future.
+            this._keypadContainer = document.createElement("div");
             document.body.appendChild(this._keypadContainer);
 
             ReactDOM.render(
