@@ -1,4 +1,4 @@
-.PHONY: help build watch fastbuild serve server server-offline install clean lint test shorttest nodetest shortnodetest editortest shorteditortest jest
+.PHONY: help build watch fastbuild serve server server-offline install clean test shorttest nodetest shortnodetest editortest shorteditortest jest
 PORT=9000
 SUPPRESSINSTALL=FALSE
 
@@ -21,7 +21,7 @@ help:
 	@echo "make test                     # run all tests"
 	@echo "# NOTE: you can append SUPPRESSINSTALL=TRUE to avoid running npm install. Useful if you temporarily have no internet."
 
-build: clean install lint shorttest $(PERSEUS_SLIM_JS) $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS) $(PERSEUS_FRAME_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE) shortnodetest shorteditortest
+build: clean install shorttest $(PERSEUS_SLIM_JS) $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS) $(PERSEUS_FRAME_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE) shortnodetest shorteditortest
 watch: install
 	./watch.sh
 
